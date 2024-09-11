@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { LoginUser } from "../Controllers/login.controller.js";
-import { SignupUser } from "../Controllers/signup.conroller.js";
-import { LogoutUser } from "../Controllers/logout.controller.js";
+import { LoginUser } from "../Controllers/UserController/login.controller.js";
+import { SignupUser } from "../Controllers/UserController/signup.conroller.js";
+import { LogoutUser } from "../Controllers/UserController/logout.controller.js";
 
 const authRoute = Router();
 
