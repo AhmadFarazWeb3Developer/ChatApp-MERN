@@ -7,7 +7,7 @@ const generateTokenAndSetCookie = (userId, res) => {
   const token = jwt.sign({ userId }, JWT_TOKEN_SECRET, {
     expiresIn: "15d",
   });
-
+  //
   res.cookie("jwt", token, {
     maxAge: 15 * 24 * 60 * 60 * 1000, //Milisecond
     httpOnly: true, // prevent XSS Attack [Cross-Site Scripting Attak] means cannot be accesable via javascript
