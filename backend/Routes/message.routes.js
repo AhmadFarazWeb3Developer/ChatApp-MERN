@@ -5,5 +5,6 @@ import { getMessage } from "../Controllers/MessageController/getMessageControlle
 const messageRouter = Router();
 
 messageRouter.post("/send/:id", authenticatedUser, sendMessage);
+// messageRouter.post("/send/:id", sendMessage);
 messageRouter.get("/:id", authenticatedUser, getMessage);
 export { messageRouter };

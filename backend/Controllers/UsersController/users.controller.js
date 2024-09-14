@@ -2,12 +2,11 @@ import { User } from "../../Models/user.model.js";
 
 const getUsersForSidebar = async (req, res) => {
   try {
-    const loggedinUser = req.user._id;
+    // ---- THESE STEPS ARE FOR ONLY AUTHENTICATED USER CAN ACCESS THE CONVERSATION
+    // const loggedinUser = req.user._id;
+    // const allUsers = await User.find({ _id: { $ne: loggedinUser } }).select("-password");
 
-    const allUsers = await User.find({ _id: { $ne: loggedinUser } }).select(
-      "-password"
-    );
-    // const allUsers = await User.find(); // for all users along with yourself
+    const allUsers = await User.find().select("-password");
 
     return res.status(200).json(allUsers);
   } catch (error) {

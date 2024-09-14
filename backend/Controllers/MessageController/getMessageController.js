@@ -11,7 +11,7 @@ const getMessage = async (req, res) => {
     }).populate("messages");
 
     console.log(conversation);
-    // Check if the conversation exists
+
     if (!conversation) {
       return res.status(404).json({
         error: "Conversation not found",

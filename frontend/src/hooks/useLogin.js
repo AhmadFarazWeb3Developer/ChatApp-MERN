@@ -19,7 +19,7 @@ const useLogin = () => {
           body: JSON.stringify({ username, password }),
         });
 
-        const data = await res.json(); // Only parse the response once
+        const data = await res.json();
 
         if (res.status === 200) {
           console.log(data);
