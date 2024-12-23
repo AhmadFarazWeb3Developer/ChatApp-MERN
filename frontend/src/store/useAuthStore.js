@@ -1,5 +1,9 @@
 import { create } from "zustand";
 import axiosInstance from "../lib/axios.js";
+import axionsInstance from "../lib/axios.js";
+import toast from "react-hot-toast";
+import { FastForward, FileArchive } from "lucide-react";
+import axios from "axios";
 const useAuthStore = create((set) => ({
   authUser: null,
   isSigningUp: false,
@@ -19,7 +23,58 @@ const useAuthStore = create((set) => ({
     }
   },
 
-  signup: async () => {},
+  signup: async (data) => {
+    set({ isSigningUp: true });
+    try {
+      const res = await axionsInstance.post("/auth/signup", data);
+      set({ authUser: res.data });
+      toast.success("Account created Successfully");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      set({ isSigningUp: false });
+    }
+  },
+  logout: async () => {
+    try {
+      await axionsInstance.post("/auth/logout");
+      set({ authUser: null });
+      toast.success("Logged out successfully");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  },
+
+  login: async (data) => {
+    set({ isLoggingIn: true });
+    console.log("data :", data);
+    try {
+      const res = await axionsInstance.post("/auth/login", data);
+
+      if (res.status === 200) {
+        set({ authUser: res.data });
+        toast.success("Logged in Successfully");
+      } else {
+        toast.error(`Unexpected status: ${res.status}`);
+      }
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status === 401) {
+          toast.error("Unauthorized: Incorrect credentials.");
+        } else if (error.response.status === 400) {
+          toast.error("Bad Request: Please check your input.");
+        } else {
+          toast.error(
+            `Error: ${error.response.data.message || "Something went wrong."}`
+          );
+        }
+      } else {
+        toast.error("Network error or server not reachable.");
+      }
+    } finally {
+      set({ isLoggingIn: false });
+    }
+  },
 }));
 
 export default useAuthStore;
