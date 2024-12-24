@@ -9,6 +9,7 @@ const useAuthStore = create((set) => ({
   isSigningUp: false,
   isLoggingIn: false,
   isCheckingAuth: true,
+  isUpdatingProfile: false,
 
   checkAuth: async () => {
     try {
@@ -75,6 +76,8 @@ const useAuthStore = create((set) => ({
       set({ isLoggingIn: false });
     }
   },
+
+  updateProfile: async () => {},
 }));
 
 export default useAuthStore;
