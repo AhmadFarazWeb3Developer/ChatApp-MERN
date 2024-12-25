@@ -2,8 +2,7 @@ import { create } from "zustand";
 import axiosInstance from "../lib/axios.js";
 import axionsInstance from "../lib/axios.js";
 import toast from "react-hot-toast";
-import { FastForward, FileArchive } from "lucide-react";
-import axios from "axios";
+
 const useAuthStore = create((set) => ({
   authUser: null,
   isSigningUp: false,
@@ -77,7 +76,18 @@ const useAuthStore = create((set) => ({
     }
   },
 
-  updateProfile: async () => {},
+  updateProfile: async (data) => {
+    set({ isUpdatingProfile: true });
+    try {
+      const res = await axionsInstance.put("/auth/update-profile", data);
+      set({ authUser: { ...authUser, profilePic: res.data.profilePic } });
+      toast.success("Profile updated Successfully");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      set({ isUpdatingProfile: false });
+    }
+  },
 }));
 
 export default useAuthStore;

@@ -1,9 +1,10 @@
 import cloudinary from "../../lib/cloudinary.lib.js";
 import userModel from "../../models/user.model.js";
 
-const updateProfile = async (res, req) => {
+const updateProfile = async (req, res) => {
   try {
     const { profilePic } = req.body;
+    // console.log("Profile Image : ", profilePic);
     const userId = req.user._id;
 
     if (!profilePic) {
@@ -18,6 +19,7 @@ const updateProfile = async (res, req) => {
       },
       { new: true }
     );
+    console.log("Updated User : ", updatedUser);
     res.status(200).json({ updatedUser });
   } catch (error) {
     res.status(500).json({ message: "Internal Server error" });
