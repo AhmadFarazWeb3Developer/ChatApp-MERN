@@ -3,7 +3,8 @@ import { Camera, Mail, User } from "lucide-react";
 import useAuthStore from "../store/useAuthStore";
 
 const ProfilePage = () => {
-  const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();
+  const { checkAuth, authUser, isUpdatingProfile, updateProfile } =
+    useAuthStore();
   const [selectedImg, setSelectedImg] = useState(null);
 
   const handleImageUpload = async (e) => {
@@ -19,7 +20,11 @@ const ProfilePage = () => {
       await updateProfile({ profilePic: base64Image });
     };
   };
- 
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
   return (
     <div className="h-screen pt-20">
       <div className="max-w-2xl mx-auto p-4 py-8">
