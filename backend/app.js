@@ -1,5 +1,5 @@
 import express, { json } from "express";
-const app = express();
+import { io, app, server } from "../backend/src/lib/socket.js";
 import dotenv from "dotenv";
 dotenv.config();
 import authRoutes from "./src/routes/auth.route.js";
@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 const port = process.env.PORT;
 
 connectDatabase().then(() => {
-  app.listen(port, (req, res) => {
+  server.listen(port, (req, res) => {
     console.log("Server is running ...");
   });
 });

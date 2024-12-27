@@ -7,5 +7,5 @@ const messageRoutes = express.Router();
 
 messageRoutes.get("/users", protectRoute, sidebarUsers);
 messageRoutes.get("/:id", protectRoute, allMessages);
-messageRoutes.get("/sender/:id", protectRoute, sendMessage);
+messageRoutes.post("/send/:id", protectRoute, sendMessage);
 export default messageRoutes;
