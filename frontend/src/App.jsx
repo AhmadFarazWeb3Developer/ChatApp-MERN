@@ -8,17 +8,17 @@ import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import SettingsPage from "./pages/SettingsPage";
 import ProfilePage from "./pages/ProfilePage";
-import userAuthStore from "./store/useAuthStore";
+import useAuthStore from "./store/useAuthStore";
 import useThemeStore from "./store/useThemeStore";
 
 const App = () => {
-  const { authUser, checkAuth, isCheckingAuth } = userAuthStore();
+  const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore();
   const { theme } = useThemeStore();
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
 
-  console.log(authUser);
+  console.log("online users : ", onlineUsers);
 
   if (isCheckingAuth && !authUser)
     // if (true)
