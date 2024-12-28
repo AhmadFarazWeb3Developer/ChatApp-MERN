@@ -10,7 +10,10 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
+import path from "path";
 
+const PORT = process.env.PORT;
+const __dirname = path.resolve();
 app.use(cookieParser());
 app.use(json());
 
@@ -28,10 +31,14 @@ app.get("/", (req, res) => {
   res.send("Ahmad Faraz");
 });
 
-const port = process.env.PORT;
-
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  });
+}
 connectDatabase().then(() => {
-  server.listen(port, (req, res) => {
+  server.listen(PORT, (req, res) => {
     console.log("Server is running ...");
   });
 });
