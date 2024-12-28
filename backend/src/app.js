@@ -1,10 +1,10 @@
 import express, { json } from "express";
-import { io, app, server } from "../backend/src/lib/socket.js";
+import { io, app, server } from "../lib/socket.js";
 import dotenv from "dotenv";
 dotenv.config();
-import authRoutes from "./src/routes/auth.route.js";
-import messageRoutes from "./src/routes/message.route.js";
-import connectDatabase from "./src/lib/dbConnecton.lib.js";
+import authRoutes from "./routes/auth.route.js";
+import messageRoutes from "./routes/message.route.js";
+import connectDatabase from "./lib/dbConnecton.lib.js";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
